@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +15,6 @@ public class Employee {
     private String username;
     private String password;
 
-    @OneToMany
     @JoinColumn
     private Ticket ticket;
 

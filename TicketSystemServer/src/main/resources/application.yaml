@@ -1,0 +1,17 @@
+spring:
+    application:
+        name: TicketSystem
+    datasource:
+
+        driverClassName: org.postgresql.Driver
+    jpa:
+        hibernate:
+          ddl-auto: update
+        #database-platform: org.hibernate.dialect.H2Dialect
+server:
+    port: 5000
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health,info,metrics,loggers,env

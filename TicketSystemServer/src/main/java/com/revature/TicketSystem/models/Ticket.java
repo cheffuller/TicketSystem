@@ -1,5 +1,7 @@
 package com.revature.TicketSystem.models;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Ticket {
+public class Ticket implements Serializable{
 
     @Id
     @Column(name = "ticket_id")
