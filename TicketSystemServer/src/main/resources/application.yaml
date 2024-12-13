@@ -1,6 +1,6 @@
 spring:
     config:
-        import: .env.app.yaml
+        import: yaml.env
     application:
         name: TicketSystem
     datasource:
