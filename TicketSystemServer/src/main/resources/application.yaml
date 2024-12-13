@@ -1,6 +1,6 @@
 spring:
     config:
-        import: 
+        import: .env
     application:
         name: TicketSystem
     datasource:
