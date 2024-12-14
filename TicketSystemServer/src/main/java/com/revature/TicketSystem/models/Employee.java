@@ -2,9 +2,8 @@ package com.revature.TicketSystem.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,11 +11,11 @@ import jakarta.persistence.Table;
 public class Employee {
 
     @Id
+    @GeneratedValue
+    private Long Id;
+
     private String username;
     private String password;
-
-    @JoinColumn
-    private Ticket ticket;
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,6 +34,14 @@ public class Employee {
     public Employee(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getUsername() {
