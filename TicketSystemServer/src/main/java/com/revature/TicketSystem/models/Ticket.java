@@ -22,19 +22,18 @@ public class Ticket implements Serializable{
     private String description;
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @Column(name = "employee_id")
+    private Long employeeID;
 
     public Ticket() {
     }
 
-    public Ticket(Long ticketID, double amount, String description, String status, Employee employee) {
+    public Ticket(Long ticketID, double amount, String description, String status, Long employeeID) {
         this.ticketID = ticketID;
         this.amount = amount;
         this.description = description;
         this.status = status;
-        this.employee = employee;
+        this.employeeID = employeeID;
     }
 
     public Long getTicketID() {
@@ -69,12 +68,12 @@ public class Ticket implements Serializable{
         this.status = status;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Long getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeID(Long employeeID) {
+        this.employeeID = employeeID;
     }
 
     

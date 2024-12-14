@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,14 +30,21 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Ticket> getTicketList() {
-        return ticketService.getTicketList();
+    @GetMapping
+    public @ResponseBody List<Ticket> getAllTickets() {
+        return ticketService.getAllTickets();
     }
 
-    @RequestMapping(method=RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Ticket> submitTicket(@RequestBody Ticket ticket) throws UnauthorizedException {
         Ticket newTicket = ticketService.submitTicket(ticket);
         return ResponseEntity.status(HttpStatus.OK).body(newTicket);
     }
+
+    @GetMapping("pending")
+    public ResponseEntity<List<Ticket>> getPendingTickets() {
+        List<Ticket> pendingTickets = ticketService.getPendingTickets();
+        return ResponseEntity.status(HttpStatus.OK).body(pendingTickets);
+    }
+    
 }

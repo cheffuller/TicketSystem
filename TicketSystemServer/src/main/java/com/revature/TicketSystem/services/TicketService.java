@@ -3,6 +3,7 @@ package com.revature.TicketSystem.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.revature.TicketSystem.repositories.EmployeeRepository;
@@ -22,7 +23,7 @@ public class TicketService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Ticket> getTicketList() {
+    public List<Ticket> getAllTickets() {
         return (List<Ticket>) ticketRepository.findAll();
     }
 
@@ -31,6 +32,11 @@ public class TicketService {
         // Employee foundEmployee = optionalEmployee.orElseThrow(() -> new UnauthorizedException("Account not found."));
         // ticket.setEmployee(foundEmployee);
         return ticketRepository.save(ticket);
+    }
+
+    public List<Ticket> getPendingTickets() {
+        List<Ticket> ticketList = ticketRepository.findByStatus("pending");
+        return ticketList;
     }
 
 }

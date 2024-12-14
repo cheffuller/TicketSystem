@@ -21,14 +21,14 @@ public class EmployeeService {
         employeeRepository.findByUsernameAndPassword(username, password);
     }
 
-    public void register(Employee employee) throws UserExistsException {
+    public Employee register(Employee employee) throws UserExistsException {
         Employee exampleEmployee = new Employee();
         exampleEmployee.setUsername(employee.getUsername());
         Example<Employee> example = Example.of(exampleEmployee);
 
         if (employeeRepository.exists(example)) throw new UserExistsException("Username already exists in database.");
 
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     // public Employee getEmployeeByUsername(Employee employee) {

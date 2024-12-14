@@ -25,9 +25,9 @@ public class EmployeeController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<String> register(@RequestBody Employee employee) throws UserExistsException{
-        employeeService.register(employee);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Successfully Registered");
+    public ResponseEntity<Employee> register(@RequestBody Employee employee) throws UserExistsException{
+        Employee newEmployee = employeeService.register(employee);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newEmployee);
     }
 
     @PostMapping("login")
