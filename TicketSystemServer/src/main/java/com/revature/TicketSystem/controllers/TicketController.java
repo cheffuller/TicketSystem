@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.revature.TicketSystem.exceptions.UnauthorizedException;
-import com.revature.TicketSystem.models.Employee;
 import com.revature.TicketSystem.models.Ticket;
 import com.revature.TicketSystem.services.TicketService;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("ticket")
@@ -36,8 +34,8 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<Ticket> submitTicket(@RequestBody Ticket ticket) throws UnauthorizedException {
-        Ticket newTicket = ticketService.submitTicket(ticket);
+    public ResponseEntity<Ticket> postTicket(@RequestBody Ticket ticket) throws UnauthorizedException {
+        Ticket newTicket = ticketService.postTicket(ticket);
         return ResponseEntity.status(HttpStatus.OK).body(newTicket);
     }
 
@@ -45,6 +43,12 @@ public class TicketController {
     public ResponseEntity<List<Ticket>> getPendingTickets() {
         List<Ticket> pendingTickets = ticketService.getPendingTickets();
         return ResponseEntity.status(HttpStatus.OK).body(pendingTickets);
+    }
+
+    @PutMapping("process/{ticketId}")
+    public ResponseEntity<Ticket> putTicketStatus(@PathVariable Long ticketId, @RequestBody Ticket ticket) throws UnauthorizedException{
+        Ticket processedTicket = ticketService.putTicketStatus(ticketId, ticket);
+        return ResponseEntity.status(HttpStatus.OK).body(processedTicket);
     }
     
 }

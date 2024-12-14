@@ -6,8 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +19,7 @@ public class Ticket implements Serializable{
     private double amount;
     private String description;
     private String status;
+    private String type;
 
     @Column(name = "employee_id")
     private Long employeeID;
@@ -28,11 +27,12 @@ public class Ticket implements Serializable{
     public Ticket() {
     }
 
-    public Ticket(Long ticketID, double amount, String description, String status, Long employeeID) {
+    public Ticket(Long ticketID, double amount, String description, String status, String type, Long employeeID) {
         this.ticketID = ticketID;
         this.amount = amount;
         this.description = description;
         this.status = status;
+        this.type = type;
         this.employeeID = employeeID;
     }
 
@@ -68,6 +68,14 @@ public class Ticket implements Serializable{
         this.status = status;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Long getEmployeeID() {
         return employeeID;
     }
@@ -75,6 +83,5 @@ public class Ticket implements Serializable{
     public void setEmployeeID(Long employeeID) {
         this.employeeID = employeeID;
     }
-
     
 }
