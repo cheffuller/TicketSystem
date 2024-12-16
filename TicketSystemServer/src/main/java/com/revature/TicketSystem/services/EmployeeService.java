@@ -1,5 +1,7 @@
 package com.revature.TicketSystem.services;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,15 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public void login(String username, String password) throws UnauthorizedException{
-        employeeRepository.findByUsernameAndPassword(username, password);
+    public Employee login(Employee employee) throws UnauthorizedException{
+        Employee exampleEmployee = new Employee();
+        exampleEmployee.setUsername(employee.getUsername());
+        exampleEmployee.setPassword(employee.getPassword());
+        Example<Employee> example = Example.of(exampleEmployee);
+
+        Optional<Employee> optionalEmployee = employeeRepository.findOne(example);
+        Employee foundEmployee = optionalEmployee.orElseThrow(() -> new UnauthorizedException("Account not found."));
+        return foundEmployee;
     }
 
     public Employee register(Employee employee) throws UserExistsException {

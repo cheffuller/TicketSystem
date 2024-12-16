@@ -14,11 +14,13 @@ import com.revature.TicketSystem.exceptions.UnauthorizedException;
 import com.revature.TicketSystem.models.Ticket;
 import com.revature.TicketSystem.services.TicketService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("ticket")
 public class TicketController {
 

@@ -10,11 +10,13 @@ import com.revature.TicketSystem.services.EmployeeService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("employee")
 public class EmployeeController {
 
@@ -32,8 +34,8 @@ public class EmployeeController {
 
     @PostMapping("login")
     public ResponseEntity<Employee> login(@RequestBody Employee employee) throws UnauthorizedException{
-        employeeService.login(employee.getUsername(), employee.getPassword());
-        return ResponseEntity.noContent().header("username", employee.getUsername()).build();
+        Employee registeredEmployee = employeeService.login(employee);
+        return ResponseEntity.status(HttpStatus.OK).body(registeredEmployee);
     }
     
 }
