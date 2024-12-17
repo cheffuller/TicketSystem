@@ -1,9 +1,11 @@
 package com.revature.TicketSystem.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.TicketSystem.exceptions.UnauthorizedException;
 import com.revature.TicketSystem.exceptions.UserExistsException;
@@ -19,10 +21,12 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    @Transactional
     public Employee login(Employee employee) throws UnauthorizedException{
         Employee exampleEmployee = new Employee();
         exampleEmployee.setUsername(employee.getUsername());
         exampleEmployee.setPassword(employee.getPassword());
+
         Example<Employee> example = Example.of(exampleEmployee);
 
         Optional<Employee> optionalEmployee = employeeRepository.findOne(example);
@@ -36,14 +40,11 @@ public class EmployeeService {
         Example<Employee> example = Example.of(exampleEmployee);
 
         if (employeeRepository.exists(example)) throw new UserExistsException("Username already exists in database.");
-
+        employee.setRole("employee");
         return employeeRepository.save(employee);
     }
 
-    // public Employee getEmployeeByUsername(Employee employee) {
-    //     Employee exampleEmployee = new Employee();
-    //     exampleEmployee.setUsername(employee.getUsername());
-    //     Example<Employee> example = Example.of(exampleEmployee);
-    //     Optional<Employee> optionalEmployee = employeeRepository.findByUsername(example.username)
-    // }
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
 }

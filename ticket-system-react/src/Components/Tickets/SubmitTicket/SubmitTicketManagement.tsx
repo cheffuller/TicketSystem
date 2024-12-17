@@ -1,6 +1,6 @@
 import React, { FormEvent, useContext, useState } from 'react';
 import SubmitTicket from './SubmitTicketForm';
-import { AuthContext } from '../../Context/UserContextReducer';
+import { UserContext } from '../../Context/UserContextReducer';
 import { Status } from '../../Context/TicketContext';
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ const SubmitTicketManagement = () => {
   const [amount, setAmount] = useState(0);
   const [type, setType] = useState('');
 
-  const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -19,14 +19,18 @@ const SubmitTicketManagement = () => {
       amount: amount,
       type: type,
       status: Status.Pending,
-      employeeID: authContext?.state.user?.id,
+      employeeID: userContext?.state.user?.id,
     };
 
     try {
       const res = await axios.post(`http://localhost:5000/ticket`, ticketData);
+      
     } catch (err) {
       console.log(err);
     }
+    setType('');
+    setDescription('');
+    setAmount(0);
   };
 
   return (

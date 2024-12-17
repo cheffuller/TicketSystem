@@ -1,19 +1,28 @@
 import React, { FormEvent, useContext, useState } from 'react';
-import { AuthContext } from '../Context/UserContextReducer';
+import { UserContext } from '../Context/UserContextReducer';
 import LoginForm from './LoginForm';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginManagement = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [register, setRegister] = useState(false);
+  const [response, setResponse] = useState('');
 
-  const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
 
-  if (!authContext) {
+  const navigate = useNavigate();
+
+  if (!userContext) {
     throw new Error('Login must be used within an AuthProvider');
   }
 
-  const { dispatch } = authContext;
+  const { dispatch } = userContext;
+
+  const handleChange = () => {
+    setRegister(!register);
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -26,17 +35,35 @@ const LoginManagement = () => {
       password: password,
     };
 
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/employee/login`,
-        empData
-      );
-      const role = res.data.role;
-      const id = res.data.id;
-      dispatch({ type: 'LOGIN', payload: { username, password, role, id } });
-    } catch (err) {
-      console.log(err);
+    if (!register) {
+      try {
+        const res = await axios.post(
+          `http://localhost:5000/employee/login`,
+          empData
+        );
+        const role = res.data.role;
+        const id = res.data.id;
+        dispatch({ type: 'LOGIN', payload: { username, password, role, id } });
+        navigate('/home');
+      } catch (err: any) {
+        console.log(err);
+        setResponse(err.response.data);
+      }
+    } else {
+      try {
+        const res = await axios.post(
+          `http://localhost:5000/employee/register`,
+          empData
+        );
+        setResponse('Registration Successful!')
+      } catch (err: any) {
+        setResponse('Username exists in database');
+      }
+      setRegister(!register);
     }
+    setUsername('');
+    setPassword('');
+    console.log(userContext);
   };
 
   return (
@@ -47,6 +74,9 @@ const LoginManagement = () => {
         password={password}
         setPassword={setPassword}
         handleSubmit={handleSubmit}
+        register={register}
+        handleChange={handleChange}
+        response={response}
       ></LoginForm>
     </>
   );

@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import ProcessTicketsManagement from './ProcessTickets/ProcessTicketsManagement';
-import { AuthContext } from '../Context/UserContextReducer';
+import { UserContext } from '../Context/UserContextReducer';
 import SubmitTicketManagement from './SubmitTicket/SubmitTicketManagement';
 
 const Tickets = () => {
-  const authContext = useContext(AuthContext);
+  const userContext = useContext(UserContext);
 
-  if (!authContext) {
+  if (!userContext) {
     throw new Error('Login must be used within an AuthProvider');
   }
-  console.log(authContext);
+  console.log(userContext);
 
   return (
     <div>

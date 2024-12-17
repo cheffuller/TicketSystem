@@ -1,14 +1,16 @@
 import React, { useContext} from 'react'
-import { AuthContext } from '../Context/UserContextReducer';
+import { UserContext } from '../Context/UserContextReducer';
 
 const Home = () => {
-      const authContext = useContext(AuthContext);
+      const userContext = useContext(UserContext);
     
-      if (!authContext) {
-        throw new Error('Login must be used within an AuthProvider');
+      if (!userContext) {
+        throw new Error('Login must be used within an UserProvider');
       }
   return (
-    <div>Home</div>
+    <div className="container">Home
+    <div>
+      Hello {userContext.state.user?.username}</div></div>
   )
 }
 

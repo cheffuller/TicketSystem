@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Employee {
+public class Employee{
 
     @Id
     @GeneratedValue
@@ -34,6 +34,7 @@ public class Employee {
     public Employee(String username, String password) {
         this.username = username;
         this.password = password;
+        this.role = "employee";
     }
 
     public Long getId() {

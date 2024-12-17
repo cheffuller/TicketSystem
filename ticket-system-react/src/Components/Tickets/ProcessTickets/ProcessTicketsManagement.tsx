@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Ticket } from '../../Context/TicketContext';
 import axios from 'axios';
 import TicketCard from '../TicketCard';

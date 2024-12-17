@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -51,6 +53,12 @@ public class TicketController {
     public ResponseEntity<Ticket> putTicketStatus(@PathVariable Long ticketId, @RequestBody Ticket ticket) throws UnauthorizedException{
         Ticket processedTicket = ticketService.putTicketStatus(ticketId, ticket);
         return ResponseEntity.status(HttpStatus.OK).body(processedTicket);
+    }
+    
+    @GetMapping("employee/{employeeID}")
+    public ResponseEntity<List<Ticket>> getTicketsByEmployee(@PathVariable Long employeeID) {
+        List<Ticket> employeeTickets = ticketService.getTicketsByEmployee(employeeID);
+        return ResponseEntity.status(HttpStatus.OK).body(employeeTickets);
     }
     
 }

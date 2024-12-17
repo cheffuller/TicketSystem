@@ -1,6 +1,4 @@
 import React from 'react';
-import TextInput from '../Util/TextInput';
-import { Link } from 'react-router-dom';
 
 type LoginFormProps = {
   username: string;
@@ -8,6 +6,9 @@ type LoginFormProps = {
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: any;
+  register: boolean;
+  handleChange: any;
+  response: string
 };
 
 const LoginForm = ({
@@ -16,6 +17,9 @@ const LoginForm = ({
   password,
   setPassword,
   handleSubmit,
+  register,
+  handleChange,
+  response
 }: LoginFormProps) => {
   return (
     <>
@@ -61,9 +65,22 @@ const LoginForm = ({
             <button type='submit' className='btn btn-primary'>
               Sign in
             </button>
+            <div className='mt-3'>Not an existing user?</div>
+              <div className='form-check form-switch'>
+                <input
+                  className=''
+                  id='register'
+                  type='checkbox'
+                  checked={register}
+                  onChange={handleChange}
+                />
+                <label className='form-check-label ms-1' htmlFor='register'>
+                  Register
+                </label>
+                <p className='mt-5 response'>{response}</p>
+            </div>
           </form>
         </div>
-        <Link to="">Register</Link>
       </div>
     </>
   );

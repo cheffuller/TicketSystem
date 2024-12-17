@@ -27,13 +27,19 @@ public class TicketService {
     }
 
     public List<Ticket> getPendingTickets() {
-        List<Ticket> ticketList = ticketRepository.findByStatus("pending");
+        List<Ticket> ticketList = ticketRepository.findByStatus("PENDING");
+        return ticketList;
+    }
+
+    public List<Ticket> getTicketsByEmployee(Long empployeeID) {
+        List<Ticket> ticketList = ticketRepository.findByEmployeeID(empployeeID);
         return ticketList;
     }
 
     public Ticket putTicketStatus(Long ticketId, Ticket ticket) throws UnauthorizedException {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         Ticket foundTicket = optionalTicket.orElseThrow(() -> new UnauthorizedException("Ticket not found."));
+        if (ticket.getStatus() != "PENDING") throw new UnauthorizedException("Cannot edit this ticket.");
         foundTicket.setStatus(ticket.getStatus());
         return ticketRepository.save(foundTicket);
     }

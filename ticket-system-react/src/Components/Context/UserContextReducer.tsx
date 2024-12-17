@@ -1,44 +1,52 @@
-import { createContext, ReactNode, useReducer } from 'react';
+import React, { createContext, ReactNode, useReducer, useContext } from 'react';
 import { User } from './UserContext';
 
-interface AuthState {
+interface UserState {
   user: User | null;
 }
 
-type AuthAction = { type: 'LOGIN'; payload: User } | { type: 'LOGOUT' };
+type UserAction = { type: 'LOGIN'; payload: User } | { type: 'LOGOUT' };
 
-const authReducer = (state: AuthState, action: AuthAction): AuthState => {
+const userReducer = (state: UserState, action: UserAction): UserState => {
   switch (action.type) {
     case 'LOGIN':
       return { user: action.payload };
     case 'LOGOUT':
       return { user: null };
     default:
-      throw new Error(`Unhandled action type: ${(action as AuthAction).type}`);
+      throw new Error(`Unhandled action type: ${(action as UserAction).type}`);
   }
 };
 
-interface AuthContextType {
-  state: AuthState;
-  dispatch: React.Dispatch<AuthAction>;
+interface UserContextType {
+  state: UserState;
+  dispatch: React.Dispatch<UserAction>;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(
+export const UserContext = createContext<UserContextType | undefined>(
   undefined
 );
 
-const initialAuthState: AuthState = { user: null };
+const initialUserState: UserState = { user: null };
 
-interface AuthProviderProps {
+interface UserProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialAuthState);
+export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const [state, dispatch] = useReducer(userReducer, initialUserState);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <UserContext.Provider value={{ state, dispatch }}>
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
+
+export const useAuth = () => {
+  const context = useContext(UserContext);
+  if(!context){
+    throw new Error('useAuth must be used within an UserProvicer');
+  }
+  return context;
+}

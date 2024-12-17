@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.login-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.response {
+  color: red;
+}
