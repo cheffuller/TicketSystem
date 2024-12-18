@@ -1,7 +1,7 @@
 import React, { FormEvent, useContext, useState } from 'react';
 import SubmitTicket from './SubmitTicketForm';
 import { UserContext } from '../../Context/UserContextReducer';
-import { Status } from '../../Context/TicketContext';
+import { Status, Ticket } from '../../Context/TicketContext';
 import axios from 'axios';
 
 const SubmitTicketManagement = () => {
@@ -14,7 +14,15 @@ const SubmitTicketManagement = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const ticketData = {
+    type ticketDataProps = {
+      description: string,
+      amount: number,
+      type: string,
+      status: Status,
+      employeeID: number | null | undefined
+    }
+
+    const ticketData: ticketDataProps = {
       description: description,
       amount: amount,
       type: type,

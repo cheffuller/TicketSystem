@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Ticket } from '../../Context/TicketContext';
+import { Status, Ticket } from '../../Context/TicketContext';
 import axios from 'axios';
-import TicketCard from '../TicketCard';
+
+import ProcessTickets from './ProcessTickets';
 
 const ProcessTicketsManagement = () => {
-  const [pendngTickets, setPendingTickets] = useState<Ticket[] | null>(null);
+  const [pendingTickets, setPendingTickets] = useState<
+    Ticket[] | null | undefined
+  >(null);
 
   useEffect(() => {
     (async () => {
@@ -17,23 +20,30 @@ const ProcessTicketsManagement = () => {
     })();
   }, []);
 
+  const removeTicket = (id: number) => {
+    setPendingTickets(pendingTickets?.filter((ticket) => ticket.status === Status.Pending));
+  };
+
+  const handleClick = async (ticket: Ticket, newStatus: Status) => {
+    ticket.status = newStatus;
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/ticket/process/${ticket.ticketID}`,
+        ticket
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    removeTicket(ticket.ticketID);
+  };
+
   return (
     <div>
       ProcessTicketsManagement
-      <div className='container'>
-        <div className='row row-cols-lg-5 g-2 g-lg-3'>
-          {pendngTickets?.map((ticket) => (
-            <div key={ticket.ticketID}>
-              <TicketCard {...ticket} />
-              <button className='btn btn-success w-50 my-1 mx-auto'>
-                Approve
-              </button>
-              <br />
-              <button className='btn btn-danger w-50 my-1 mx-auto'>Deny</button>
-            </div>
-          ))}
-        </div>
-      </div>
+      <ProcessTickets
+        pendingTickets={pendingTickets}
+        handleClick={handleClick}
+      />
     </div>
   );
 };

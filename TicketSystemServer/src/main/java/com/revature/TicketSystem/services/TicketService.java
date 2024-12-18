@@ -39,7 +39,7 @@ public class TicketService {
     public Ticket putTicketStatus(Long ticketId, Ticket ticket) throws UnauthorizedException {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         Ticket foundTicket = optionalTicket.orElseThrow(() -> new UnauthorizedException("Ticket not found."));
-        if (ticket.getStatus() != "PENDING") throw new UnauthorizedException("Cannot edit this ticket.");
+        if (!foundTicket.getStatus().equals("PENDING")) throw new UnauthorizedException("Cannot edit this ticket.");
         foundTicket.setStatus(ticket.getStatus());
         return ticketRepository.save(foundTicket);
     }
