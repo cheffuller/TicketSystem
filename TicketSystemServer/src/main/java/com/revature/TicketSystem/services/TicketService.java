@@ -31,8 +31,8 @@ public class TicketService {
         return ticketList;
     }
 
-    public List<Ticket> getTicketsByEmployee(Long empployeeID) {
-        List<Ticket> ticketList = ticketRepository.findByEmployeeID(empployeeID);
+    public List<Ticket> getTicketsByEmployee(Long employeeID) {
+        List<Ticket> ticketList = ticketRepository.findByEmployeeID(employeeID);
         return ticketList;
     }
 

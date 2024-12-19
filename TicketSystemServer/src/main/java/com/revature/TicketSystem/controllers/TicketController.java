@@ -15,7 +15,6 @@ import com.revature.TicketSystem.models.Ticket;
 import com.revature.TicketSystem.services.TicketService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,15 +30,10 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping
-    public @ResponseBody List<Ticket> getAllTickets() {
-        return ticketService.getAllTickets();
-    }
-
     @PostMapping
     public ResponseEntity<Ticket> postTicket(@RequestBody Ticket ticket) throws UnauthorizedException {
         Ticket newTicket = ticketService.postTicket(ticket);
-        return ResponseEntity.status(HttpStatus.OK).body(newTicket);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTicket);
     }
 
     @GetMapping("pending")
