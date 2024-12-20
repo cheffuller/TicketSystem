@@ -25,6 +25,7 @@ const LoginForm = ({
     <>
       <div className='mt-5'>
         <h5>Employee Login</h5>
+        {response && <div className='mb-3'>{response}</div>}
         <div className='login-form mt-3'>
           <form className='container' onSubmit={handleSubmit}>
             <div className='row mb-3'>
@@ -66,7 +67,7 @@ const LoginForm = ({
               Sign in
             </button>
             <div className='mt-3'>Not an existing user?</div>
-              <div className='form-check form-switch'>
+              <div className='form-check'>
                 <input
                   className=''
                   id='register'
@@ -77,7 +78,6 @@ const LoginForm = ({
                 <label className='form-check-label ms-1' htmlFor='register'>
                   Register
                 </label>
-                <p className='mt-5 response'>{response}</p>
             </div>
           </form>
         </div>

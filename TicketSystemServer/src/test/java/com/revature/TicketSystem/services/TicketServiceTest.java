@@ -50,10 +50,4 @@ public class TicketServiceTest {
         List<Ticket> tickets = ticketService.getPendingTickets();
         assertThat(tickets, Matchers.hasItem(Matchers.instanceOf(Ticket.class)));
     }
-
-    @Test
-    public void getTicketsByEmployeeTest() throws Exception {
-        List<Ticket> tickets = ticketService.getTicketsByEmployee((long) 502);
-        assertThat(tickets, Matchers.hasItem(Matchers.instanceOf(Ticket.class)));
-    }
 }

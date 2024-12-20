@@ -1,13 +1,17 @@
 import React, { FormEvent, useContext, useState } from 'react';
 import SubmitTicket from './SubmitTicketForm';
 import { UserContext } from '../../Context/UserContextReducer';
-import { Status, Ticket } from '../../Context/TicketContext';
+import { Status } from '../../Context/TicketContext';
 import axios from 'axios';
 
 const SubmitTicketManagement = () => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState(0);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Other');
+  const [message, setMessage] = useState('');
+  const ticketTypeOptions: string[] = [
+    "Travel", "Lodging", "Food"
+  ]
 
   const userContext = useContext(UserContext);
 
@@ -31,19 +35,19 @@ const SubmitTicketManagement = () => {
     };
 
     try {
-      const res = await axios.post(`http://localhost:5000/ticket`, ticketData);
-      
+      const res = await axios.post(`http://localhost:5000/api/tickets`, ticketData);
+      setMessage(`Ticket ${res.data.ticketID} was submitted successfully`);
     } catch (err) {
       console.log(err);
+      setMessage(`An error occurred when submitting your ticket`);
     }
-    setType('');
+    setType('Other');
     setDescription('');
     setAmount(0);
   };
 
   return (
-    <div>
-      SubmitTicketManagement
+    <>
       <SubmitTicket
         description={description}
         setDescription={setDescription}
@@ -52,8 +56,10 @@ const SubmitTicketManagement = () => {
         type={type}
         setType={setType}
         handleSubmit={handleSubmit}
+        ticketTypeOptions={ticketTypeOptions}
+        message={message}
       />
-    </div>
+    </>
   );
 };
 

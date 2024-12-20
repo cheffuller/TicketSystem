@@ -1,5 +1,10 @@
 import React, { ReactNode, useContext, useState } from "react";
 
+export enum Role {
+  Employee = "EMPLOYEE",
+  Manager = "MANAGER"
+}
+
 interface Employee {
   username: string;
   password: string;
@@ -8,7 +13,7 @@ interface Employee {
   address: string;
   city: string;
   zipCode: number;
-  role: string;
+  role: Role;
   id: number;
 }
 

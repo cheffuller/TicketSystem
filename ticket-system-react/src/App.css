@@ -42,6 +42,10 @@
   margin: 0 auto;
 }
 
+.ticket-form {
+  max-width: 500px
+}
+
 .response {
   color: red;
 }

@@ -83,5 +83,4 @@ public class Ticket implements Serializable{
     public void setEmployeeID(Long employeeID) {
         this.employeeID = employeeID;
     }
-    
 }

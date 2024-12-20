@@ -8,11 +8,14 @@ const ProcessTicketsManagement = () => {
   const [pendingTickets, setPendingTickets] = useState<
     Ticket[] | null | undefined
   >(null);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/ticket/pending`);
+        const res = await axios.get(
+          `http://localhost:5000/api/tickets/pending`
+        );
         setPendingTickets(res.data);
       } catch (err) {
         console.log(err);
@@ -21,16 +24,19 @@ const ProcessTicketsManagement = () => {
   }, []);
 
   const removeTicket = (id: number) => {
-    setPendingTickets(pendingTickets?.filter((ticket) => ticket.status === Status.Pending));
+    setPendingTickets(
+      pendingTickets?.filter((ticket) => ticket.status === Status.Pending)
+    );
   };
 
   const handleClick = async (ticket: Ticket, newStatus: Status) => {
     ticket.status = newStatus;
     try {
       const res = await axios.put(
-        `http://localhost:5000/ticket/process/${ticket.ticketID}`,
+        `http://localhost:5000/api/tickets/process/${ticket.ticketID}`,
         ticket
       );
+      setMessage(`Ticket ${res.data.ticketID} was ${res.data.status}`);
     } catch (err) {
       console.log(err);
     }
@@ -38,13 +44,13 @@ const ProcessTicketsManagement = () => {
   };
 
   return (
-    <div>
-      ProcessTicketsManagement
+    <>
       <ProcessTickets
+        message={message}
         pendingTickets={pendingTickets}
         handleClick={handleClick}
       />
-    </div>
+    </>
   );
 };
 

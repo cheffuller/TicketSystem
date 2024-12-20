@@ -25,7 +25,7 @@ class EmployeeControllerTest {
     public void endpointRegisterTest() throws Exception {
         String requestBody = "{\"username\": \"tester\", \"password\": \"testpass\"}";
 
-        mockMvc.perform(post("/employee/register")
+        mockMvc.perform(post("/api/employee/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isCreated());
@@ -35,7 +35,7 @@ class EmployeeControllerTest {
     public void endpointLoginTest() throws Exception {
         String requestBody = "{\"username\": \"tester\", \"password\": \"testpass\"}";
 
-        mockMvc.perform(post("/employee/login")
+        mockMvc.perform(post("/api/employee/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());

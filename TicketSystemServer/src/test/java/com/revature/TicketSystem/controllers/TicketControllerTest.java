@@ -27,7 +27,7 @@ public class TicketControllerTest {
     public void endpointPostTicketTest() throws Exception {
         String requestBody = "{\"description\": \"testDescription\", \"amount\": \"10.00\", \"type\": \"testtype\"}";
 
-        mockMvc.perform(post("/ticket")
+        mockMvc.perform(post("/api/tickets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isCreated());
@@ -35,14 +35,14 @@ public class TicketControllerTest {
 
     @Test
     public void endpointGetPendingTicketTest() throws Exception {
-        mockMvc.perform(get("/ticket/pending")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/tickets/pending")).andExpect(status().isOk());
     }
 
     @Test
     public void endpointPutTicketStatusTest() throws Exception {
         String requestBody = "{\"description\": \"testDescription\", \"amount\": \"10.00\", \"status\": \"ACCEPTED\"}";
 
-        mockMvc.perform(put("/ticket/process/502")
+        mockMvc.perform(put("/api/tickets/process/502")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk());
@@ -50,6 +50,6 @@ public class TicketControllerTest {
 
     @Test
     public void endpointGetTicketsByEmployeeTest() throws Exception {
-        mockMvc.perform(get("/ticket/employee/502")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/tickets/employee/502")).andExpect(status().isOk());
     }
 }

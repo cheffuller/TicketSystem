@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../Context/UserContextReducer';
 
@@ -17,7 +17,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-5'>
         <div className='container-fluid'>
           <Link className='navbar-brand' to='/'>
             TicketSystem
@@ -66,7 +66,7 @@ const NavBar = () => {
               {isAuthenticated && (
                 <li className='nav-item'>
                   <Link className='nav-link' to='/tickets/view'>
-                    View Ticket
+                    View Tickets
                   </Link>
                 </li>
               )}
@@ -77,42 +77,6 @@ const NavBar = () => {
                   </Link>
                 </li>
               )}
-              <li className='nav-item dropdown'>
-                <a
-                  className='nav-link dropdown-toggle'
-                  href='#'
-                  role='button'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'
-                >
-                  Dropdown
-                </a>
-                <ul className='dropdown-menu'>
-                  <li>
-                    <a className='dropdown-item' href='#'>
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='#'>
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <hr className='dropdown-divider' />
-                  </li>
-                  <li>
-                    <a className='dropdown-item' href='#'>
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className='nav-item'>
-                <a className='nav-link disabled' aria-disabled='true'>
-                  Disabled
-                </a>
-              </li>
             </ul>
             <form className='d-flex' role='search'>
               <input

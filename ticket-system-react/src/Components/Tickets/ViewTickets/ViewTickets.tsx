@@ -1,30 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import TicketCard from '../TicketCard';
 import { Ticket } from '../../Context/TicketContext';
-import { UserContext } from '../../Context/UserContextReducer';
 
-const ViewTickets = () => {
-  const [tickets, setTickets] = useState<Ticket[] | null>(null);
-  const userContext = useContext(UserContext);
-  const employeeID = userContext?.state.user?.id;
+type ViewTicketsType = {
+  tickets : Ticket[] | null;
+}
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/ticket/employee/${employeeID}`
-        );
-        setTickets(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
+const ViewTickets = ({tickets}: ViewTicketsType) => {
 
   return (
     <div>
-      ViewTickets
+      <h5 className='mb-3'>View Tickets</h5>
       <div className='container'>
         <div className='row row-cols-lg-5 g-2 g-lg-3'>
           {tickets?.map((ticket) => (

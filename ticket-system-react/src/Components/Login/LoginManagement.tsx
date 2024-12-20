@@ -38,7 +38,7 @@ const LoginManagement = () => {
     if (!register) {
       try {
         const res = await axios.post(
-          `http://localhost:5000/employee/login`,
+          `http://localhost:5000/api/employee/login`,
           empData
         );
         const role = res.data.role;
@@ -52,10 +52,10 @@ const LoginManagement = () => {
     } else {
       try {
         const res = await axios.post(
-          `http://localhost:5000/employee/register`,
+          `http://localhost:5000/api/employee/register`,
           empData
         );
-        setResponse('Registration Successful!')
+        setResponse(`Registration successful for username - ${res.data.username}`)
       } catch (err: any) {
         setResponse('Username exists in database');
       }
@@ -63,7 +63,6 @@ const LoginManagement = () => {
     }
     setUsername('');
     setPassword('');
-    console.log(userContext);
   };
 
   return (
