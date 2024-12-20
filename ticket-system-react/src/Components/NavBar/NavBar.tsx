@@ -19,9 +19,6 @@ const NavBar = () => {
     <>
       <nav className='navbar navbar-expand-lg navbar-dark bg-primary mb-5'>
         <div className='container-fluid'>
-          <Link className='navbar-brand' to='/'>
-            TicketSystem
-          </Link>
           <button
             className='navbar-toggler'
             type='button'
@@ -34,7 +31,38 @@ const NavBar = () => {
             <span className='navbar-toggler-icon'></span>
           </button>
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-            <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+            <ul className='navbar-nav m-auto mb-lg-0'>
+              <Link className='navbar-brand' to='/'>
+                TicketSystem
+              </Link>
+              {isAuthenticated && (
+                <li className='nav-item mx-2'>
+                  <Link className='nav-link' to='/home'>
+                    Home
+                  </Link>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li className='nav-item mx-2'>
+                  <Link className='nav-link' to='/tickets'>
+                    Submit Ticket
+                  </Link>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li className='nav-item mx-2'>
+                  <Link className='nav-link' to='/tickets/view'>
+                    View Tickets
+                  </Link>
+                </li>
+              )}
+              {isManager && (
+                <li className='nav-item mx-2'>
+                  <Link className='nav-link' to='/tickets/process'>
+                    Process Tickets
+                  </Link>
+                </li>
+              )}
               <li className='nav-item'>
                 {!isAuthenticated ? (
                   <Link className='nav-link active' aria-current='page' to='/'>
@@ -51,46 +79,7 @@ const NavBar = () => {
                   </Link>
                 )}
               </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/home'>
-                  Home
-                </Link>
-              </li>
-              {isAuthenticated && (
-                <li className='nav-item'>
-                  <Link className='nav-link' to='/tickets'>
-                    Submit Ticket
-                  </Link>
-                </li>
-              )}
-              {isAuthenticated && (
-                <li className='nav-item'>
-                  <Link className='nav-link' to='/tickets/view'>
-                    View Tickets
-                  </Link>
-                </li>
-              )}
-              {isManager && (
-                <li className='nav-item'>
-                  <Link className='nav-link' to='/tickets/process'>
-                    Process Tickets
-                  </Link>
-                </li>
-              )}
             </ul>
-            <form className='d-flex' role='search'>
-              <input
-                className='form-control me-2'
-                type='search'
-                placeholder='Search'
-                aria-label='Search'
-              />
-              {isAuthenticated && (
-                <button className='btn btn-light' type='submit'>
-                  Search
-                </button>
-              )}
-            </form>
           </div>
         </div>
       </nav>

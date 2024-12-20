@@ -12,7 +12,7 @@ server:
     port: 5000
 logging:
   level:
-    root: INFO  # Set the root logger level
+    root: DEBUG  # Set the root logger level
   file:
     name: logs/TicketSystem.log  # Set the name of the log file
     max-size: 10MB  # Set the maximum file size
